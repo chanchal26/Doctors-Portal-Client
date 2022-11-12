@@ -8,14 +8,14 @@ const Contact = () => {
         <div style={{ background: `url(${appointment})` }}>
             <div className='pt-5  text-center'>
                 <h4 className='text-primary text-xl font-bold'>Contact Us</h4>
-                <h2 className='text-2xl font-semibold'>Stay connected with us</h2>
+                <h2 className='text-2xl font-semibold text-white'>Stay connected with us</h2>
             </div>
-            <form class="space-y-4 py-10 ">
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 w-1/2 mx-auto">
+            <form className="space-y-4 py-10 ">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 w-1/2 mx-auto">
                     <div>
-                        <label class="sr-only" for="email">Email</label>
+                        <label className="sr-only" htmlFor="email">Email</label>
                         <input
-                            class="w-full rounded-lg border-gray-200 p-3 text-sm border"
+                            className="w-full rounded-lg border-gray-200 p-3 text-sm border"
                             placeholder="Email address"
                             type="email"
                             id="email"
@@ -23,9 +23,9 @@ const Contact = () => {
                     </div>
 
                     <div>
-                        <label class="sr-only" for="phone">Subjects</label>
+                        <label className="sr-only" htmlFor="phone">Subjects</label>
                         <input
-                            class="w-full rounded-lg border-gray-200 p-3 text-sm border"
+                            className="w-full rounded-lg border-gray-200 p-3 text-sm border"
                             placeholder="Subjects"
                             type="tel"
                             id="subjects"
@@ -34,9 +34,9 @@ const Contact = () => {
                 </div>
 
                 <div className='w-1/2 mx-auto'>
-                    <label class="sr-only" for="message">Your Message</label>
+                    <label className="sr-only" htmlFor="message">Your Message</label>
                     <textarea
-                        class="w-full rounded-lg border-gray-200 p-3 text-sm border"
+                        className="w-full rounded-lg border-gray-200 p-3 text-sm border"
                         placeholder="Your Message"
                         rows="8"
                         id="message"
