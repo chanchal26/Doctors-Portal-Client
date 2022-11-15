@@ -4,11 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'react-day-picker/dist/style.css';
+import UserContexts from './Contexts/UserContexts';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <UserContexts>
+      <App />
+    </UserContexts>
   </React.StrictMode>
 );
 
