@@ -1,15 +1,27 @@
+import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import Loading from '../../Shared/Loading';
 import BookingModal from './BookingModal';
 
+
 const AvailableAppintment = ({ selected }) => {
-    const [options, setOptions] = useState([]);
     const [treatment, setTreatment] = useState({});
-    useEffect(() => {
-        fetch('appointmentOptions.json')
-            .then(res => res.json())
-            .then(data => setOptions(data));
-    }, [])
+    const date = format(selected, 'PP');
+    console.log(date);
+    const { data: options = [], refetch, isLoading } = useQuery({
+        queryKey: ['appointmentOptions', date],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/appointmentOptions?date=${date}`)
+            const data = res.json();
+            return data
+        }
+    });
+
+    if (isLoading) {
+        return <Loading />
+    }
+
     return (
         <div className=' mx-auto my-20'>
             <p className='text-primary font-semibold text-md text-center'>Available Appointments on {format(selected, 'PP')}</p>
@@ -27,7 +39,9 @@ const AvailableAppintment = ({ selected }) => {
 
                                 </div>
                             </div>
-                            <BookingModal treatment={treatment} setTreatment={setTreatment} selected={selected} />
+                            {
+                                treatment && <BookingModal treatment={treatment} setTreatment={setTreatment} selected={selected} refetch={refetch} />
+                            }
                         </div>
 
                     )
