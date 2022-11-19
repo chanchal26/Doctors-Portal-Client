@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { AuthContext } from '../../Contexts/UserContexts';
 
 const BookingModal = ({ treatment, selected, setTreatment, refetch }) => {
-    const { name: treatmentName } = treatment;
+    const { name: treatmentName, price } = treatment;
     const date = format(selected, 'PP');
 
     const { user } = useContext(AuthContext);
@@ -23,6 +23,7 @@ const BookingModal = ({ treatment, selected, setTreatment, refetch }) => {
             slot,
             email,
             phone,
+            price,
         }
 
         fetch('http://localhost:5000/bookings', {

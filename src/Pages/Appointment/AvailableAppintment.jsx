@@ -32,6 +32,7 @@ const AvailableAppintment = ({ selected }) => {
                                 <h2 className="card-title text-primary">{option.name}</h2>
                                 <p>{option.slots.length > 0 ? option.slots[0] : 'Try Another Day'}</p>
                                 <p>{option.slots.length} {option.slots.length > 1 ? 'Spaces' : 'Space'} Available</p>
+                                <p>Price: ${option.price}</p>
                                 <div className="card-actions justify-end">
                                     {/* <button className="btn btn-primary bg-gradient-to-r from-primary to-secondary text-white">Book Appointment</button> */}
                                     <label disabled={option.slots.length === 0} onClick={() => setTreatment(option)} htmlFor="booking-modal" className="btn btn-primary bg-gradient-to-r from-primary to-secondary text-white">Book Appointment</label>
