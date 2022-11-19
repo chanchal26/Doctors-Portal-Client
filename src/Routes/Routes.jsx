@@ -1,12 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
+import DashBoardLayout from "../Layout/DashBoardLayout";
 import Main from "../Layout/Main";
 import About from "../Pages/About/About";
 import Appointment from "../Pages/Appointment/Appointment";
-import Dashboard from "../Pages/DashBoard/Dashboard";
+import AddDoctor from "../Pages/DashBoard/AddDoctor";
+import AllUsers from "../Pages/DashBoard/AllUsers";
+import ManageDoctors from "../Pages/DashBoard/ManageDoctors";
+import MyAppointment from "../Pages/DashBoard/MyAppointment";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import Reviews from "../Pages/Reviews/Reviews";
+import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoutes";
 
 const router = createBrowserRouter([
@@ -42,7 +47,25 @@ const router = createBrowserRouter([
     },
     {
         path: '/dashboard',
-        element: <PrivateRoute><Dashboard /></PrivateRoute>
+        element: <PrivateRoute><DashBoardLayout /></PrivateRoute>,
+        children: [
+            {
+                path: '/dashboard',
+                element: <MyAppointment />
+            },
+            {
+                path: '/dashboard/allUsers',
+                element: <AdminRoute><AllUsers /></AdminRoute>
+            },
+            {
+                path: '/dashboard/addDoctor',
+                element: <AdminRoute><AddDoctor /></AdminRoute>
+            },
+            {
+                path: '/dashboard/manageDoctors',
+                element: <AdminRoute><ManageDoctors /></AdminRoute>
+            },
+        ]
     }
 ]);
 

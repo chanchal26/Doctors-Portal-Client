@@ -3,13 +3,20 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/UserContexts';
+import useToken from '../../Hooks/UseToken';
 
 
 const Register = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { createUser, updateUser } = useContext(AuthContext);
     const [error, setError] = useState('');
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
+    const [token] = useToken(createdUserEmail);
     const navigate = useNavigate()
+
+    if (token) {
+        navigate('/');
+    }
 
     const handleRegister = data => {
         const { email, password } = data;
@@ -22,7 +29,7 @@ const Register = () => {
                 }
                 updateUser(userInfo)
                     .then((res) => {
-                        navigate('/')
+                        savedUser(data.name, data.email)
                         console.log(res.user)
                     })
                     .catch(error => setError(error.message))
@@ -30,8 +37,25 @@ const Register = () => {
             .catch(error =>
                 setError(error.message)
             )
+    };
 
-    }
+    const savedUser = (name, email) => {
+        const user = { name, email };
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                setCreatedUserEmail(email);
+            })
+    };
+
+
+
     return (
         <div className='flex items-center justify-center my-32 '>
             <div className='w-96 p-7 shadow-xl'>
@@ -58,7 +82,7 @@ const Register = () => {
                         <input {...register("password", {
                             required: "Password is required",
                             minLength: { value: 8, message: "Password Must be 6 Characters", },
-                            pattern: { value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z]).{8}/, message: "Password must be Strong" }
+                            // pattern: { value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z]).{8}/, message: "Password must be Strong" }
                         })} type="password" placeholder="Password" className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
                     </div>

@@ -8,7 +8,6 @@ import BookingModal from './BookingModal';
 const AvailableAppintment = ({ selected }) => {
     const [treatment, setTreatment] = useState({});
     const date = format(selected, 'PP');
-    console.log(date);
     const { data: options = [], refetch, isLoading } = useQuery({
         queryKey: ['appointmentOptions', date],
         queryFn: async () => {
